@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Button } from '@/components/ui';
 import styles from './HeroEnhanced.module.css';
 
 interface HeroEnhancedProps {
@@ -21,10 +22,14 @@ export default function HeroEnhanced({
 
                     <div className={styles.actions}>
                         <Link href="/contact">
-                            <button className={styles.btnPrimary}>Book Consultation</button>
+                            <Button variant="primary" size="large">
+                                Book Consultation
+                            </Button>
                         </Link>
                         <Link href="/services">
-                            <button className={styles.btnSecondary}>Explore Services</button>
+                            <Button variant="secondary" size="large">
+                                Explore Services
+                            </Button>
                         </Link>
                     </div>
                 </div>

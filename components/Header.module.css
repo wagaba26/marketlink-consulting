@@ -1,43 +1,59 @@
 .header {
+    background: white;
+    border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-    z-index: 1000;
+    z-index: 100;
     padding: 1rem 0;
 }
 
 .nav {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--primary);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary);
+    text-decoration: none;
 }
 
 .links {
     display: flex;
-    gap: 2rem;
     align-items: center;
+    gap: 2rem;
 }
 
 .link {
+    color: var(--text-main);
     font-weight: 500;
-    color: var(--text-secondary);
+    text-decoration: none;
     transition: color 0.2s;
-    font-size: 0.95rem;
+    position: relative;
 }
 
 .link:hover {
     color: var(--primary);
+}
+
+.link.active {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary);
 }
 
 .mobileMenuBtn {
@@ -51,31 +67,28 @@
 
 @media (max-width: 768px) {
     .links {
-        display: flex;
         position: fixed;
-        top: 0;
-        right: 0;
-        height: 100vh;
-        width: 100%;
+        top: 70px;
+        right: -100%;
+        width: 250px;
+        height: calc(100vh - 70px);
         background: white;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in-out;
-        z-index: 999;
-        padding-top: 60px;
-        /* Space for header */
+        align-items: flex-start;
+        padding: 2rem;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
     }
 
     .links.open {
-        transform: translateX(0);
+        right: 0;
     }
 
     .mobileMenuBtn {
         display: block;
-        z-index: 1001;
-        /* Ensure button is above menu */
-        position: relative;
+    }
+
+    .link.active::after {
+        display: none;
     }
 }

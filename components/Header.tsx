@@ -2,14 +2,20 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useToggle } from '@/hooks/useToggle';
+import { NAV_LINKS } from '@/lib/constants';
 import styles from './Header.module.css';
 
 export default function Header() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, toggleMenu, , closeMenu] = useToggle(false);
+    const pathname = usePathname();
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+    const isActive = (href: string) => {
+        if (href === '/') {
+            return pathname === '/';
+        }
+        return pathname.startsWith(href);
     };
 
     return (
@@ -27,19 +33,30 @@ export default function Header() {
                 </Link>
 
                 <nav className={`${styles.links} ${isMenuOpen ? styles.open : ''}`}>
-                    <Link href="/" className={styles.link} onClick={() => setIsMenuOpen(false)}>Home</Link>
-                    <Link href="/services" className={styles.link} onClick={() => setIsMenuOpen(false)}>Services</Link>
-                    <Link href="/how-it-works" className={styles.link} onClick={() => setIsMenuOpen(false)}>How It Works</Link>
-                    <Link href="/about" className={styles.link} onClick={() => setIsMenuOpen(false)}>About Us</Link>
-                    <Link href="/insights" className={styles.link} onClick={() => setIsMenuOpen(false)}>Insights</Link>
-                    <Link href="/resources" className={styles.link} onClick={() => setIsMenuOpen(false)}>Resources</Link>
-                    <Link href="/contact" className="btn btn-primary" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
+                    {NAV_LINKS.map((link) => (
+                        <Link
+                            key={link.href}
+                            href={link.href}
+                            className={`${styles.link} ${isActive(link.href) ? styles.active : ''}`}
+                            onClick={closeMenu}
+                        >
+                            {link.label}
+                        </Link>
+                    ))}
+                    <Link
+                        href="/contact"
+                        className="btn btn-primary"
+                        onClick={closeMenu}
+                    >
+                        Get Started
+                    </Link>
                 </nav>
 
                 <button
                     className={styles.mobileMenuBtn}
                     onClick={toggleMenu}
                     aria-label="Toggle menu"
+                    aria-expanded={isMenuOpen}
                 >
                     {isMenuOpen ? '✕' : '☰'}
                 </button>

@@ -1,0 +1,11 @@
+.step {
+    text-align: left;
+}
+
+.stepNumber {
+    font-size: 4rem;
+    font-weight: 800;
+    opacity: 0.2;
+    line-height: 1;
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,11 @@
+.iconWrapper {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
