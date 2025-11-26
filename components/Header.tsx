@@ -1,11 +1,17 @@
+'use client';
+
 import Link from 'next/link';
-import { useState } from 'react';
 import Image from 'next/image';
+import { useState } from 'react';
 import styles from './Header.module.css';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
         <header className={styles.header}>
             <div className={`container ${styles.nav}`}>
@@ -20,35 +26,24 @@ export default function Header() {
                     <span>MarketLink</span>
                 </Link>
 
-                <nav className={styles.links}>
-                    <Link href="/" className={styles.link}>Home</Link>
-                    <Link href="/services" className={styles.link}>Services</Link>
-                    <Link href="/how-it-works" className={styles.link}>How It Works</Link>
-                    <Link href="/about" className={styles.link}>About Us</Link>
-                    <Link href="/insights" className={styles.link}>Insights</Link>
-                    <Link href="/resources" className={styles.link}>Resources</Link>
-                    <Link href="/contact" className="btn btn-primary">Get Started</Link>
+                <nav className={`${styles.links} ${isMenuOpen ? styles.open : ''}`}>
+                    <Link href="/" className={styles.link} onClick={() => setIsMenuOpen(false)}>Home</Link>
+                    <Link href="/services" className={styles.link} onClick={() => setIsMenuOpen(false)}>Services</Link>
+                    <Link href="/how-it-works" className={styles.link} onClick={() => setIsMenuOpen(false)}>How It Works</Link>
+                    <Link href="/about" className={styles.link} onClick={() => setIsMenuOpen(false)}>About Us</Link>
+                    <Link href="/insights" className={styles.link} onClick={() => setIsMenuOpen(false)}>Insights</Link>
+                    <Link href="/resources" className={styles.link} onClick={() => setIsMenuOpen(false)}>Resources</Link>
+                    <Link href="/contact" className="btn btn-primary" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
                 </nav>
 
-                <button className={styles.mobileMenuBtn} onClick={toggleMenu} aria-label="Open menu">
-                    ☰
+                <button
+                    className={styles.mobileMenuBtn}
+                    onClick={toggleMenu}
+                    aria-label="Toggle menu"
+                >
+                    {isMenuOpen ? '✕' : '☰'}
                 </button>
             </div>
-            {isMenuOpen && (
-                <>
-                    <div className={styles.overlay} onClick={toggleMenu} />
-                    <nav className={`${styles.mobileMenu} ${styles.open}`}>
-                        <button className={styles.closeBtn} onClick={toggleMenu} aria-label="Close menu">✕</button>
-                        <Link href="/" className={styles.link} onClick={toggleMenu}>Home</Link>
-                        <Link href="/services" className={styles.link} onClick={toggleMenu}>Services</Link>
-                        <Link href="/how-it-works" className={styles.link} onClick={toggleMenu}>How It Works</Link>
-                        <Link href="/about" className={styles.link} onClick={toggleMenu}>About Us</Link>
-                        <Link href="/insights" className={styles.link} onClick={toggleMenu}>Insights</Link>
-                        <Link href="/resources" className={styles.link} onClick={toggleMenu}>Resources</Link>
-                        <Link href="/contact" className={"btn btn-primary"} onClick={toggleMenu}>Get Started</Link>
-                    </nav>
-                </>
-            )}
         </header>
     );
 }
