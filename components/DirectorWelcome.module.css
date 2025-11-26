@@ -1,0 +1,113 @@
+.directorWelcome {
+    background: #F5F7FA;
+    padding: 5rem 0;
+}
+
+.card {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.label {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #0A2342;
+    margin-bottom: 1rem;
+    padding-top: 3rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.5fr;
+    gap: 3rem;
+    padding: 2rem 3rem 3rem;
+    align-items: start;
+}
+
+.photoContainer {
+    position: relative;
+}
+
+.photo {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+}
+
+.content {
+    padding-top: 1rem;
+}
+
+.heading {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0A2342;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.accentLine {
+    width: 60px;
+    height: 4px;
+    background: #0A2342;
+    margin-bottom: 2rem;
+}
+
+.message {
+    color: #4B5563;
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.signature {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid #E5E7EB;
+}
+
+.signatureName {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0A2342;
+    margin-bottom: 0.25rem;
+}
+
+.signatureTitle {
+    font-size: 0.95rem;
+    color: #6B7280;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 1.5rem;
+    }
+
+    .label {
+        padding-top: 2rem;
+    }
+
+    .heading {
+        font-size: 1.75rem;
+    }
+
+    .photoContainer {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .content {
+        padding-top: 0;
+    }
+}
