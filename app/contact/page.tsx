@@ -1,6 +1,10 @@
+'use client';
+
 import { MapPin, Mail, Phone, Clock } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Contact() {
+    const [activeTab, setActiveTab] = useState<'trader' | 'supplier'>('trader');
     return (
         <div className="container section">
             <div className="text-center mb-8">
@@ -54,10 +58,79 @@ export default function Contact() {
                     <div className="card" style={{ background: 'var(--accent)', border: 'none' }}>
                         <h3 className="mb-2">Ready to Join?</h3>
                         <p className="mb-4">Select your path to get started immediately.</p>
-                        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                            <button className="btn btn-primary" style={{ flex: 1 }}>Register as Trader</button>
-                            <button className="btn btn-secondary" style={{ flex: 1 }}>Register as Supplier</button>
+
+                        {/* Toggle Switch */}
+                        <div style={{
+                            background: 'white',
+                            padding: '4px',
+                            borderRadius: 'var(--radius)',
+                            display: 'flex',
+                            position: 'relative',
+                            marginBottom: '1.5rem',
+                            border: '1px solid var(--border)'
+                        }}>
+                            <div style={{
+                                position: 'absolute',
+                                top: '4px',
+                                left: '4px',
+                                width: 'calc(50% - 4px)',
+                                height: 'calc(100% - 8px)',
+                                background: 'var(--primary)',
+                                borderRadius: '4px',
+                                transform: activeTab === 'trader' ? 'translateX(0)' : 'translateX(100%)',
+                                transition: 'transform 0.3s ease',
+                                zIndex: 1
+                            }} />
+
+                            <button
+                                onClick={() => setActiveTab('trader')}
+                                style={{
+                                    flex: 1,
+                                    padding: '10px',
+                                    border: 'none',
+                                    background: 'transparent',
+                                    zIndex: 2,
+                                    color: activeTab === 'trader' ? 'white' : 'var(--text-secondary)',
+                                    fontWeight: '600',
+                                    cursor: 'pointer',
+                                    transition: 'color 0.3s'
+                                }}
+                            >
+                                Trader
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('supplier')}
+                                style={{
+                                    flex: 1,
+                                    padding: '10px',
+                                    border: 'none',
+                                    background: 'transparent',
+                                    zIndex: 2,
+                                    color: activeTab === 'supplier' ? 'white' : 'var(--text-secondary)',
+                                    fontWeight: '600',
+                                    cursor: 'pointer',
+                                    transition: 'color 0.3s'
+                                }}
+                            >
+                                Supplier
+                            </button>
                         </div>
+
+                        {activeTab === 'trader' ? (
+                            <div className="fade-in">
+                                <p className="mb-4" style={{ fontSize: '0.9rem' }}>
+                                    Join our network of trusted automotive traders. Access genuine parts, financing, and business support.
+                                </p>
+                                <button className="btn btn-primary" style={{ width: '100%' }}>Register as Trader</button>
+                            </div>
+                        ) : (
+                            <div className="fade-in">
+                                <p className="mb-4" style={{ fontSize: '0.9rem' }}>
+                                    Partner with us to distribute your automotive products in the African market.
+                                </p>
+                                <button className="btn btn-primary" style={{ width: '100%' }}>Register as Supplier</button>
+                            </div>
+                        )}
                     </div>
                 </div>
 

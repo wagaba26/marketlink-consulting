@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { CheckCircle, ArrowRight } from 'lucide-react';
+import styles from './services.module.css';
 
 export default function Services() {
     return (
@@ -12,64 +14,84 @@ export default function Services() {
             </div>
 
             {/* Supplier Services */}
-            <div className="grid grid-2 mb-8" style={{ alignItems: 'center' }}>
-                <div>
-                    <h2 className="mb-2">For International Suppliers</h2>
-                    <p className="mb-4">
-                        Expand your reach into the African market with confidence. We handle the complexities of market entry so you can focus on production.
-                    </p>
-                    <ul className="mb-4" style={{ listStyle: 'none' }}>
-                        {[
-                            "Market entry consulting & strategy",
-                            "Regulatory & compliance support",
-                            "Account management & financial administration",
-                            "Due diligence & KYC/AML checks",
-                            "Identification of verified local distributors"
-                        ].map((item, i) => (
-                            <li key={i} className="mb-1" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                                <CheckCircle size={18} color="var(--success)" /> {item}
-                            </li>
-                        ))}
-                    </ul>
-                    <Link href="/contact?type=supplier" className="btn btn-primary">
-                        Schedule Supplier Consultation <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
-                    </Link>
+            <div className={styles.serviceSection}>
+                <div className={styles.sectionHeader}>
+                    <div className={styles.serviceContent}>
+                        <h2 className="mb-2">For International Suppliers</h2>
+                        <p className="mb-4">
+                            Expand your reach into the African market with confidence. We handle the complexities of market entry so you can focus on production.
+                        </p>
+                        <Link href="/contact?type=supplier" className="btn btn-primary">
+                            Schedule Supplier Consultation <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
+                        </Link>
+                    </div>
+                    <div className={styles.serviceImageWrapper}>
+                        <Image
+                            src="/images/supplier-meeting.jpg"
+                            alt="International Supplier Meeting"
+                            fill
+                            className={styles.serviceImage}
+                        />
+                    </div>
                 </div>
-                <div style={{ background: 'var(--accent)', height: '300px', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ color: 'var(--text-secondary)' }}>Image Placeholder: Supplier Meeting</span>
+
+                <div className={styles.serviceGrid}>
+                    {[
+                        "Market entry consulting & strategy",
+                        "Regulatory & compliance support",
+                        "Account management & financial administration",
+                        "Due diligence & KYC/AML checks",
+                        "Identification of verified local distributors"
+                    ].map((item, i) => (
+                        <div key={i} className={styles.serviceCard}>
+                            <div className={styles.cardHeader}>
+                                <CheckCircle size={20} color="var(--success)" style={{ flexShrink: 0 }} />
+                                <span>{item}</span>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
             <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '4rem 0' }} />
 
             {/* Trader Services */}
-            <div className="grid grid-2 mb-8" style={{ alignItems: 'center' }}>
-                <div style={{ order: 1 }}>
-                    <div style={{ background: 'var(--accent)', height: '300px', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <span style={{ color: 'var(--text-secondary)' }}>Image Placeholder: Auto Workshop</span>
+            <div className={styles.serviceSection}>
+                <div className={`${styles.sectionHeader} ${styles.reverse}`}>
+                    <div className={styles.serviceContent}>
+                        <h2 className="mb-2">For Automotive Traders</h2>
+                        <p className="mb-4">
+                            Grow your business with access to genuine parts, credit, and professional support. We help you formalize and scale.
+                        </p>
+                        <Link href="/contact?type=trader" className="btn btn-primary">
+                            Register as Trader <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
+                        </Link>
+                    </div>
+                    <div className={styles.serviceImageWrapper}>
+                        <Image
+                            src="/images/trader-shop.jpg"
+                            alt="Automotive Trader Shop"
+                            fill
+                            className={styles.serviceImage}
+                        />
                     </div>
                 </div>
-                <div style={{ order: 2 }}>
-                    <h2 className="mb-2">For Automotive Traders</h2>
-                    <p className="mb-4">
-                        Grow your business with access to genuine parts, credit, and professional support. We help you formalize and scale.
-                    </p>
-                    <ul className="mb-4" style={{ listStyle: 'none' }}>
-                        {[
-                            "Trader onboarding & business formalisation",
-                            "Credit assessment & trade finance",
-                            "Capacity building (bookkeeping, digital payments)",
-                            "Access to quality automotive products",
-                            "Inventory management support"
-                        ].map((item, i) => (
-                            <li key={i} className="mb-1" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                                <CheckCircle size={18} color="var(--success)" /> {item}
-                            </li>
-                        ))}
-                    </ul>
-                    <Link href="/contact?type=trader" className="btn btn-primary">
-                        Register as Trader <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
-                    </Link>
+
+                <div className={styles.serviceGrid}>
+                    {[
+                        "Trader onboarding & business formalisation",
+                        "Credit assessment & trade finance",
+                        "Capacity building (bookkeeping, digital payments)",
+                        "Access to quality automotive products",
+                        "Inventory management support"
+                    ].map((item, i) => (
+                        <div key={i} className={styles.serviceCard}>
+                            <div className={styles.cardHeader}>
+                                <CheckCircle size={20} color="var(--success)" style={{ flexShrink: 0 }} />
+                                <span>{item}</span>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
