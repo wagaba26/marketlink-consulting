@@ -23,22 +23,18 @@ export default function HowItWorks() {
                         />
                         <Step
                             icon={<CreditCard />}
-                            title="2. Credit Assessment"
-                            desc="We assess your business health to determine your credit limit and terms."
+                            title="2. Credit Growth Support"
+                            desc="We help traders grow their credit as they continue trading with us or any of our partners."
                         />
-                        <Step
-                            icon={<ShoppingCart />}
-                            title="3. Browse & Order"
-                            desc="Access our catalog of genuine parts and place your orders."
-                        />
+
                         <Step
                             icon={<Truck />}
-                            title="4. Logistics & Delivery"
+                            title="3. Logistics & Delivery"
                             desc="MarketLink handles sourcing, shipping, and customs clearance to your door."
                         />
                         <Step
                             icon={<TrendingUp />}
-                            title="5. Repay & Grow"
+                            title="4. Repay & Grow"
                             desc="Repay your credit on time to increase your limits and grow your business."
                         />
                     </div>
