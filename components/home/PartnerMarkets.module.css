@@ -1,0 +1,88 @@
+.section {
+    padding: 5rem 0;
+    background-color: white;
+    overflow: hidden;
+    /* Prevent horizontal scrollbar on body */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header {
+    margin-bottom: 3rem;
+    max-width: 800px;
+}
+
+.title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.description {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+}
+
+.scrollContainer {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 2rem;
+    /* Space for scrollbar */
+    margin: 0 -20px;
+    /* Negative margin to bleed to edge on mobile */
+    padding-left: 20px;
+    padding-right: 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Hide scrollbar Firefox */
+}
+
+.scrollContainer::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar Chrome/Safari */
+}
+
+.card {
+    min-width: 280px;
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.countryName {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.countryDesc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+@media (min-width: 768px) {
+    .scrollContainer {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        overflow-x: visible;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .scrollContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

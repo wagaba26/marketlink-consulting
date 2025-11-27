@@ -1,0 +1,84 @@
+.section {
+    padding: 5rem 0;
+    background-color: #f0fdf4;
+    /* Very light green/mint hint for finance/money */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.contentWrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.textContent {
+    max-width: 600px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.description {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.featureCard {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--success);
+}
+
+.featureTitle {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.featureText {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.ctaButton {
+    display: inline-block;
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.ctaButton:hover {
+    background-color: var(--primary-light);
+}
+
+@media (min-width: 1024px) {
+    .contentWrapper {
+        grid-template-columns: 1fr;
+        /* Keep single column but centered or split if image added later */
+    }
+}

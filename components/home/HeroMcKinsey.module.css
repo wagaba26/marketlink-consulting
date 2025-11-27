@@ -1,0 +1,104 @@
+.hero {
+    background-color: var(--primary);
+    color: white;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+}
+
+.content {
+    max-width: 650px;
+    padding: 4rem 0;
+}
+
+.title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: white;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 500px;
+}
+
+.ctaButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: white;
+    color: var(--primary);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.ctaButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.arrowIcon {
+    transition: transform 0.2s ease;
+}
+
+.ctaButton:hover .arrowIcon {
+    transform: translateX(4px);
+}
+
+/* Desktop visual element (subtle gradient/image) */
+.visual {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, var(--primary) 0%, transparent 100%),
+        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+    /* Warehouse/Logistics image */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding: 6rem 0 4rem;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.125rem;
+    }
+
+    .visual {
+        display: none;
+    }
+}
