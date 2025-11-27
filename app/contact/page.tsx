@@ -122,10 +122,61 @@ function RegistrationCardContent({ type }: RegistrationCardContentProps) {
 
 // Contact Form Component
 function ContactForm() {
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        subject: 'General Inquiry',
+        message: ''
+    });
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState('');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Handle form submission
-        console.log('Form submitted');
+        setLoading(true);
+        setError('');
+        setSuccess(false);
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: `${formData.firstName} ${formData.lastName}`,
+                    email: formData.email,
+                    subject: formData.subject,
+                    message: formData.message
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setSuccess(true);
+                setFormData({
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    subject: 'General Inquiry',
+                    message: ''
+                });
+            } else {
+                setError(data.error || 'Something went wrong. Please try again.');
+            }
+        } catch (err) {
+            setError('Something went wrong. Please try again or email us directly at info@marketlinkconsulting.com.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     const inputStyle = {
@@ -144,23 +195,78 @@ function ContactForm() {
 
     return (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {success && (
+                <div style={{
+                    padding: '1rem',
+                    backgroundColor: '#d4edda',
+                    color: '#155724',
+                    borderRadius: 'var(--radius)',
+                    border: '1px solid #c3e6cb'
+                }}>
+                    Thank you! Your message has been sent.
+                </div>
+            )}
+
+            {error && (
+                <div style={{
+                    padding: '1rem',
+                    backgroundColor: '#f8d7da',
+                    color: '#721c24',
+                    borderRadius: 'var(--radius)',
+                    border: '1px solid #f5c6cb'
+                }}>
+                    {error}
+                </div>
+            )}
+
             <div className="grid grid-2" style={{ gap: '1rem' }}>
                 <div>
                     <label style={labelStyle}>First Name</label>
-                    <input type="text" required style={inputStyle} />
+                    <input
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        required
+                        style={inputStyle}
+                        disabled={loading}
+                    />
                 </div>
                 <div>
                     <label style={labelStyle}>Last Name</label>
-                    <input type="text" required style={inputStyle} />
+                    <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        required
+                        style={inputStyle}
+                        disabled={loading}
+                    />
                 </div>
             </div>
             <div>
                 <label style={labelStyle}>Email Address</label>
-                <input type="email" required style={inputStyle} />
+                <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    style={inputStyle}
+                    disabled={loading}
+                />
             </div>
             <div>
                 <label style={labelStyle}>Subject</label>
-                <select required style={inputStyle}>
+                <select
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    style={inputStyle}
+                    disabled={loading}
+                >
                     <option>General Inquiry</option>
                     <option>Trader Registration</option>
                     <option>Supplier Consultation</option>
@@ -170,13 +276,22 @@ function ContactForm() {
             <div>
                 <label style={labelStyle}>Message</label>
                 <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     rows={5}
                     required
                     style={{ ...inputStyle, fontFamily: 'inherit' }}
+                    disabled={loading}
                 ></textarea>
             </div>
-            <button type="submit" className="btn btn-primary" style={{ marginTop: '1rem' }}>
-                Send Message
+            <button
+                type="submit"
+                className="btn btn-primary"
+                style={{ marginTop: '1rem' }}
+                disabled={loading}
+            >
+                {loading ? 'Sending...' : 'Send Message'}
             </button>
         </form>
     );
