@@ -3,6 +3,7 @@
 import { MapPin, Mail, Phone, Clock, LucideIcon } from 'lucide-react';
 import { useState, FormEvent } from 'react';
 
+
 // Types
 type UserType = 'trader' | 'supplier';
 

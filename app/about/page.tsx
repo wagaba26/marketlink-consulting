@@ -3,6 +3,13 @@ import ValueCard from '@/components/about/ValueCard';
 import MissionVision from '@/components/about/MissionVision';
 import { Section, Grid } from '@/components/ui';
 import { Shield, Eye, Handshake, FileText } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "About Us",
+    description: "Learn about MarketLink Consulting, Uganda's leading automotive trade consulting firm. Our mission is to enable frictionless trade between international suppliers and local automotive traders in East Africa.",
+};
+
 
 export default function About() {
     const values = [

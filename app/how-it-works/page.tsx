@@ -2,6 +2,12 @@ import Link from 'next/link';
 import ProcessStep from '@/components/how-it-works/ProcessStep';
 import { Grid } from '@/components/ui';
 import { UserPlus, CreditCard, Truck, TrendingUp, FileText, Shield, Users, BarChart } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "How It Works",
+    description: "Learn how MarketLink Consulting simplifies automotive trade in Uganda and East Africa. Step-by-step processes for traders and international suppliers.",
+};
 
 export default function HowItWorks() {
     const traderSteps = [

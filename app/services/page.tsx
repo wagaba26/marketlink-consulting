@@ -1,4 +1,11 @@
 import ServiceSection from '@/components/services/ServiceSection';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Our Services",
+    description: "Comprehensive automotive trade consulting services in Uganda and East Africa. Market entry strategy, compliance support, trade finance, and business formalization for suppliers and traders.",
+};
+
 
 export default function Services() {
     const supplierServices = [

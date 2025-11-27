@@ -2,6 +2,12 @@ import DownloadCard from '@/components/resources/DownloadCard';
 import FAQItem from '@/components/resources/FAQItem';
 import { Grid } from '@/components/ui';
 import type { DownloadResource, FAQItemData } from '@/types';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Resources",
+    description: "Download forms, guides, and FAQs for automotive trade in Uganda. Essential resources for traders and suppliers working with MarketLink Consulting.",
+};
 
 export default function Resources() {
     const downloads: DownloadResource[] = [
