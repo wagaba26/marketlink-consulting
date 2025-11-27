@@ -2,14 +2,25 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 // Email configuration from environment variables
+const SMTP_HOST = process.env.SMTP_HOST || 'smtp.zoho.com';
+const SMTP_PORT = parseInt(process.env.SMTP_PORT || '465');
+const SMTP_USER = process.env.SMTP_USER || 'info@marketlinkconsulting.com';
+const SMTP_PASS = process.env.SMTP_PASS || '';
+
+// Determine secure connection based on port (465 is usually secure/SSL, 587 is TLS)
+const SMTP_SECURE = process.env.SMTP_SECURE === 'true' || SMTP_PORT === 465;
+
 const SMTP_CONFIG = {
-    host: process.env.SMTP_HOST || 'smtp.zoho.com',
-    port: parseInt(process.env.SMTP_PORT || '465'),
-    secure: true,
-    auth: {
-        user: process.env.SMTP_USER || 'info@marketlinkconsulting.com',
-        pass: process.env.SMTP_PASS || '',
-    },
+  host: SMTP_HOST,
+  port: SMTP_PORT,
+  secure: SMTP_SECURE,
+  auth: {
+    user: SMTP_USER,
+    pass: SMTP_PASS,
+  },
+  // Add debug options for better logging
+  logger: true,
+  debug: true,
 };
 
 const CONTACT_TO = process.env.CONTACT_TO || 'info@marketlinkconsulting.com';
@@ -17,47 +28,56 @@ const CONTACT_FROM = process.env.CONTACT_FROM || 'info@marketlinkconsulting.com'
 
 // Request body interface
 interface ContactFormData {
-    name: string;
-    email: string;
-    subject?: string;
-    message: string;
+  name: string;
+  email: string;
+  subject?: string;
+  message: string;
 }
 
 // Email validation helper
 function isValidEmail(email: string): boolean {
-    return email.includes('@') && email.length > 3;
+  return email.includes('@') && email.length > 3;
 }
 
 export async function POST(request: NextRequest) {
+  try {
+    // Parse request body
+    const body: ContactFormData = await request.json();
+    const { name, email, subject, message } = body;
+
+    // Validate required fields
+    if (!name || !email || !message) {
+      return NextResponse.json(
+        { error: 'Name, email, and message are required' },
+        { status: 400 }
+      );
+    }
+
+    // Validate email format
+    if (!isValidEmail(email)) {
+      return NextResponse.json(
+        { error: 'Please provide a valid email address' },
+        { status: 400 }
+      );
+    }
+
+    // Create Nodemailer transporter
+    const transporter = nodemailer.createTransport(SMTP_CONFIG);
+
+    // Verify connection configuration
     try {
-        // Parse request body
-        const body: ContactFormData = await request.json();
-        const { name, email, subject, message } = body;
+      await transporter.verify();
+      console.log('SMTP connection verified successfully');
+    } catch (verifyError) {
+      console.error('SMTP connection verification failed:', verifyError);
+      // We continue to try sending, but this log is crucial for debugging
+    }
 
-        // Validate required fields
-        if (!name || !email || !message) {
-            return NextResponse.json(
-                { error: 'Name, email, and message are required' },
-                { status: 400 }
-            );
-        }
+    // Prepare email subject
+    const emailSubject = subject || 'New message from MarketLink website';
 
-        // Validate email format
-        if (!isValidEmail(email)) {
-            return NextResponse.json(
-                { error: 'Please provide a valid email address' },
-                { status: 400 }
-            );
-        }
-
-        // Create Nodemailer transporter
-        const transporter = nodemailer.createTransport(SMTP_CONFIG);
-
-        // Prepare email subject
-        const emailSubject = subject || 'New message from MarketLink website';
-
-        // Email to company
-        const companyEmailHtml = `
+    // Email to company
+    const companyEmailHtml = `
       <!DOCTYPE html>
       <html>
         <head>
@@ -103,7 +123,7 @@ export async function POST(request: NextRequest) {
       </html>
     `;
 
-        const companyEmailText = `
+    const companyEmailText = `
 New Contact Form Submission
 
 From: ${name}
@@ -117,26 +137,29 @@ ${message}
 This message was sent from the MarketLink Consulting website contact form.
     `;
 
-        // Send email to company
-        try {
-            await transporter.sendMail({
-                from: `"MarketLink Website" <${CONTACT_FROM}>`,
-                to: CONTACT_TO,
-                replyTo: email,
-                subject: emailSubject,
-                text: companyEmailText,
-                html: companyEmailHtml,
-            });
-        } catch (error) {
-            console.error('Failed to send email to company:', error);
-            return NextResponse.json(
-                { error: 'Failed to send message. Please try again later.' },
-                { status: 500 }
-            );
-        }
+    // Send email to company
+    try {
+      await transporter.sendMail({
+        from: `"MarketLink Website" <${CONTACT_FROM}>`,
+        to: CONTACT_TO,
+        replyTo: email,
+        subject: emailSubject,
+        text: companyEmailText,
+        html: companyEmailHtml,
+      });
+      console.log('Email sent to company successfully');
+    } catch (error) {
+      console.error('Failed to send email to company:', error);
+      // Return specific error message if possible
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      return NextResponse.json(
+        { error: `Failed to send message: ${errorMessage}` },
+        { status: 500 }
+      );
+    }
 
-        // Send auto-reply to user
-        const autoReplyHtml = `
+    // Send auto-reply to user
+    const autoReplyHtml = `
       <!DOCTYPE html>
       <html>
         <head>
@@ -173,7 +196,7 @@ This message was sent from the MarketLink Consulting website contact form.
       </html>
     `;
 
-        const autoReplyText = `
+    const autoReplyText = `
 Dear ${name},
 
 Thank you for contacting MarketLink Consulting.
@@ -193,28 +216,29 @@ Email: info@marketlinkconsulting.com
 Phone: +256 709 938 589
     `;
 
-        // Send auto-reply (don't fail the request if this fails)
-        try {
-            await transporter.sendMail({
-                from: `"MarketLink Consulting" <${CONTACT_FROM}>`,
-                to: email,
-                subject: 'Thanks for contacting MarketLink Consulting',
-                text: autoReplyText,
-                html: autoReplyHtml,
-            });
-        } catch (error) {
-            console.error('Failed to send auto-reply email:', error);
-            // Continue - don't fail the request if auto-reply fails
-        }
-
-        // Return success
-        return NextResponse.json({ success: true }, { status: 200 });
-
+    // Send auto-reply (don't fail the request if this fails)
+    try {
+      await transporter.sendMail({
+        from: `"MarketLink Consulting" <${CONTACT_FROM}>`,
+        to: email,
+        subject: 'Thanks for contacting MarketLink Consulting',
+        text: autoReplyText,
+        html: autoReplyHtml,
+      });
+      console.log('Auto-reply sent successfully');
     } catch (error) {
-        console.error('Contact form error:', error);
-        return NextResponse.json(
-            { error: 'Failed to send message. Please try again later.' },
-            { status: 500 }
-        );
+      console.error('Failed to send auto-reply email:', error);
+      // Continue - don't fail the request if auto-reply fails
     }
+
+    // Return success
+    return NextResponse.json({ success: true }, { status: 200 });
+
+  } catch (error) {
+    console.error('Contact form error:', error);
+    return NextResponse.json(
+      { error: 'Failed to send message. Please try again later.' },
+      { status: 500 }
+    );
+  }
 }
