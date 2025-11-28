@@ -54,7 +54,7 @@ export default function Services() {
                 description="Grow your business with access to genuine parts, credit, and professional support. We help you formalize and scale."
                 buttonText="Register as Trader"
                 buttonLink="/contact?type=trader"
-                imageSrc="/images/trader-shop.jpg"
+                imageSrc="/images/trader-shop-v2.jpg"
                 imageAlt="Automotive Trader Shop"
                 services={traderServices}
                 reverse

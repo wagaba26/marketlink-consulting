@@ -29,9 +29,7 @@ export default function DirectorWelcome() {
                                     Welcome to MarketLink, and thank you for visiting our website.
                                 </p>
 
-                                <p style={{ marginBottom: '1.5rem' }}>
-                                    As Managing Director, I am proud to introduce a company built with a clear purpose — to make automotive trade easier, more reliable, and better connected across Africa.
-                                </p>
+                                As Managing Director, I am proud to introduce a company built with a clear purpose: to make automotive trade easier, more reliable, and better connected across Africa.
 
                                 <p style={{ marginBottom: '1.5rem' }}>
                                     Our team brings years of experience working with international companies entering African markets, as well as supporting local automotive traders to source quality products from trusted suppliers. MarketLink was founded in 2025 to provide the structure, trust, and professional support that the automotive industry has always needed: from sourcing and logistics to credit assessment, compliance, and ongoing account management.
