@@ -315,53 +315,7 @@ export default function Contact() {
                 {/* Contact Info Section */}
                 <div>
                     {/* Contact Information Card */}
-                    <div className="card mb-4">
-                        <h3 className="mb-4">Contact Information</h3>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                            <ContactInfoItem icon={MapPin} title="Visit Us">
-                                <p>
-                                    Plot 90, Kanjokya House, 4th Floor,<br />
-                                    Kanjokya Street, Kamwokya,<br />
-                                    Kampala, Uganda
-                                </p>
-                            </ContactInfoItem>
 
-                            <ContactInfoItem icon={Mail} title="Email Us">
-                                <a
-                                    href="mailto:info@marketlinkconsulting.com"
-                                    style={{
-                                        color: 'var(--text-secondary)',
-                                        textDecoration: 'none',
-                                        transition: 'color 0.2s'
-                                    }}
-                                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary)'}
-                                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-                                >
-                                    info@marketlinkconsulting.com
-                                </a>
-                            </ContactInfoItem>
-
-                            <ContactInfoItem icon={Phone} title="Call Us">
-                                <a
-                                    href="tel:+256709938589"
-                                    style={{
-                                        color: 'var(--text-secondary)',
-                                        textDecoration: 'none',
-                                        transition: 'color 0.2s',
-                                        cursor: 'pointer'
-                                    }}
-                                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary)'}
-                                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-                                >
-                                    +256 709 938 589
-                                </a>
-                            </ContactInfoItem>
-
-                            <ContactInfoItem icon={Clock} title="Working Hours">
-                                <p>Mon - Fri: 8:00 AM - 5:00 PM</p>
-                            </ContactInfoItem>
-                        </div>
-                    </div>
 
                     {/* Registration Card */}
                     <div className="card" style={{ background: 'var(--accent)', border: 'none' }}>
