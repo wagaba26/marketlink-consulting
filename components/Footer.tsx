@@ -75,7 +75,7 @@ export default function Footer() {
                 </div>
 
                 <div className={styles.bottom}>
-                    <p>&copy; {currentYear} {SITE_NAME} Ltd. All rights reserved.</p>
+                    <p>&copy; {currentYear} Marketlink Enterprises (U) Ltd. All rights reserved.</p>
                 </div>
             </div>
         </footer>

@@ -22,6 +22,10 @@ const markets = [
         description: 'Premium luxury vehicles and commercial trucks.',
     },
     {
+        country: 'Australia',
+        description: 'High-quality 4x4s and mining vehicles.',
+    },
+    {
         country: 'Local & Regional Africa',
         description: 'Cross-border trade and regional distribution networks.',
     },
