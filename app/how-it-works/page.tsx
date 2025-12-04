@@ -61,7 +61,7 @@ export default function HowItWorks() {
     const faqs: FAQItemData[] = [
         {
             question: "How do I register as a trader?",
-            answer: "You can register by filling out the online form on our Contact page or downloading the onboarding form here. Our team will verify your details within 48 hours."
+            answer: "You can register by filling out the online form on our Contact page. Our team will verify your details within 24 hours and get in touch with you."
         },
         {
             question: "What are the requirements for credit?",

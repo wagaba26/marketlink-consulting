@@ -46,11 +46,6 @@ export interface Article {
     category: string;
 }
 
-export interface DownloadResource {
-    title: string;
-    size: string;
-    url?: string;
-}
 
 export interface FAQItemData {
     question: string;
